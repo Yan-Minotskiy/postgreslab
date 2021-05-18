@@ -1,3 +1,5 @@
+CREATE DATABASE lab;
+
 CREATE TABLE public.client
 (
     id bigint NOT NULL,
