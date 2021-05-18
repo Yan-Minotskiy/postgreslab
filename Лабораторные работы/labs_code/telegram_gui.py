@@ -80,9 +80,6 @@ async def menu(message: types.Message):
         buttons = ['Задания', 'Клиенты', 'Оборудование', 'Войти с другого аккаунта']
     elif db_mng.user.status == 2:
         buttons = ['Задания', 'Клиенты', 'Оборудование', 'Работники', 'Контракты', 'Войти с другого аккаунта']
-    elif db_mng.user.status == 2:
-        buttons = ['Задания', 'Клиенты', 'Оборудование', 'Работники', 'Контракты', 'Запрос к базе данных',
-                   'Войти с другого аккаунта']
     keyboard.add(*buttons)
     await message.answer("Используйте кнопки и команды для выбора.", reply_markup=keyboard)
 
@@ -108,6 +105,7 @@ async def task(message: types.Message):
     await message.answer(string, reply_markup=keyboard)
 
 
+# ! TODO: доделать
 async def excelreport(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     if db_mng.user.status < 1:
@@ -117,6 +115,67 @@ async def excelreport(message: types.Message):
         return
     db_mng.excel_report()
     await message.answer_document("./report.xlsx")
+
+
+async def newtask_step1(message: types.Message):
+    
+    await message.answer("Название задние:")
+    await Auth.log_in.set()    
+
+
+async def newtask_step2(message: types.Message):
+    pass
+
+async def newtask_step3(message: types.Message):
+    pass
+
+async def complite_step1(message: types.Message):
+    pass
+
+async def complite_step2(message: types.Message):
+    pass
+
+async def workers(message: types.Message):
+    pass
+
+async def workertask_step1(message: types.Message):
+    pass
+
+async def workertask_step2(message: types.Message):
+    pass
+
+async def searchclient_step1(message: types.Message):
+    pass
+
+async def searchclient_step2(message: types.Message):
+    pass
+
+async def models(message: types.Message):
+    pass
+
+async def newequipment_step1(message: types.Message):
+    pass
+
+async def newequipment_step2(message: types.Message):
+    pass
+
+async def contract(message: types.Message):
+    pass
+
+async def newcontract_step1(message: types.Message):
+    pass
+
+async def newcontract_step2(message: types.Message):
+    pass
+
+async def newcontract_step3(message: types.Message):
+    pass
+
+async def freerequest_step1(message: types.Message):
+    pass
+
+async def freerequest_step2(message: types.Message):
+    pass
 
 
 if __name__ == '__main__':
