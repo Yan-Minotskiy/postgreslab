@@ -1,86 +1,114 @@
 CREATE DATABASE lab;
 
-CREATE TABLE public.client
-(
-    id bigint NOT NULL,
+CREATE TABLE client
+	(
+    id bigint NOT NULL PRIMARY KEY,
     name character varying(30) NOT NULL,
     surname character varying(50) NOT NULL,
     phone character varying(20),
     address character varying(200),
     email character varying(100),
-    organization_name character varying(80),
-    PRIMARY KEY (id)
-);
+    organization_name character varying(80)
+	);
 
-CREATE TABLE public.contract
+CREATE TABLE contract
 (
-    "number" bigint NOT NULL,
+    number bigint NOT NULL PRIMARY KEY,
     client bigint NOT NULL,
-    create_date date NOT NULL,
-    PRIMARY KEY ("number")
+    create_date date NOT NULL
 );
 
-CREATE TABLE public.employee
+CREATE TABLE worker
 (
-    id bigint NOT NULL,
+    login character varying(30) NOT NULL PRIMARY KEY,
     name character varying(30) NOT NULL,
     surname character varying(50) NOT NULL,
-    login character varying(30) NOT NULL,
     password character varying(30) NOT NULL,
-    role integer NOT NULL,
-    PRIMARY KEY (id)
+    status_id integer NOT NULL
 );
 
-CREATE TABLE public.equipment
+CREATE TABLE equipment
 (
-    serial_number bigint NOT NULL,
-    create_date date,
-    model integer NOT NULL,
-    contract_number bigint,
-    PRIMARY KEY (serial_number)
+    id bigint NOT NULL PRIMARY KEY,
+    artical_number bigint NOT NULL,
+    create_date date NOT NULL,
+    contract_number bigint
 );
 
-CREATE TABLE public.model_equipment
+CREATE TABLE model
 (
-    id integer NOT NULL,
+    artical_number integer NOT NULL PRIMARY KEY,
     name character varying(100) NOT NULL,
-    characteristics json,
-    PRIMARY KEY (id)
+    parameters json
 );
 
-CREATE TABLE public.task
+CREATE TABLE task
 (
-    id bigint NOT NULL,
-    name character varying(200),
-    create_date timestamp with time zone NOT NULL,
+    id bigint NOT NULL PRIMARY KEY,
     author bigint NOT NULL,
     executor bigint,
-    priority integer NOT NULL,
-    completion_date timestamp with time zone,
+    name character varying(80),
+    description character varying(200),
+    create_date timestamp with time zone NOT NULL,
     deadline timestamp with time zone,
-    client bigint,
-    contract bigint,
-    PRIMARY KEY (id)
+    complete timestamp with time zone,
+    priority_id integer NOT NULL,
+    client bigint
 );
 
-CREATE TABLE public.role
+CREATE TABLE status
 (
-    id integer NOT NULL,
-    name "char" NOT NULL,
-    PRIMARY KEY (id)
+    id integer NOT NULL PRIMARY KEY,
+    name character varying(80) NOT NULL
 );
 
-CREATE TABLE public.priority
+CREATE TABLE priority
 (
-    id integer NOT NULL,
-    name character varying(6) NOT NULL,
-    PRIMARY KEY (id)
+    id integer NOT NULL PRIMARY KEY,
+    name character varying(6) NOT NULL
 );
 
-ALTER TABLE public.contract
-    ADD FOREIGN KEY (client)
-    REFERENCES public.client (id)
-    NOT VALID;
+ALTER TABLE equipment
+ADD FOREIGN KEY (artical_number) REFERENCES model(artical_number);
+
+ALTER TABLE equipment
+ADD FOREIGN KEY (contract_number) REFERENCES contract(number);
+
+ALTER TABLE contract
+ADD FOREIGN KEY (client) REFERENCES client(id);
+
+ALTER TABLE task
+ADD FOREIGN KEY (client) REFERENCES client(id);
+
+ALTER TABLE task
+ADD FOREIGN KEY (priority_id) REFERENCES priority(id);
+
+## Следующие связи с ошибкой
+
+ALTER TABLE task
+ADD FOREIGN KEY (executor) REFERENCES worker(login);
+
+ALTER TABLE task
+ADD FOREIGN KEY (author) REFERENCES worker(login);
+
+ALTER TABLE worker
+ADD FOREIGN KEY (status_id) REFERENCES status(status_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ALTER TABLE public.equipment
@@ -129,3 +157,4 @@ ALTER TABLE public.priority
     ADD FOREIGN KEY (id)
     REFERENCES public.task (priority)
     NOT VALID;
+
