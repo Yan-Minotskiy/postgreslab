@@ -45,8 +45,8 @@ CREATE TABLE model
 CREATE TABLE task
 (
     id bigint NOT NULL PRIMARY KEY,
-    author bigint NOT NULL,
-    executor bigint,
+    author  character varying(30) NOT NULL,
+    executor character varying(30),
     name character varying(80),
     description character varying(200),
     create_date timestamp with time zone NOT NULL,

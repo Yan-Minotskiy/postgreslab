@@ -8,8 +8,6 @@ from aiogram.dispatcher.filters import Text, IDFilter
 
 bot = Bot("1796050067:AAFwAh-xzLSddy3Cmr2olc7armhhfaoq0PY")
 dp = Dispatcher(bot, storage=MemoryStorage())
-db_mng = DbManager()
-
 
 def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(start, commands="start", state="*")
@@ -22,8 +20,6 @@ def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(task, commands="task", state="*")
     dp.register_message_handler(task, Text(equals="задания", ignore_case=True), state="*")
     dp.register_message_handler(excelreport, commands="excelreport", state="*")
-    
-
 
 """Стартовое сообщение в телеграм-боте"""
 async def start(message):
@@ -104,82 +100,3 @@ async def task(message: types.Message):
     if string == '':
         string = "Нет заданий."
     await message.answer(string, reply_markup=keyboard)
-
-
-# ! TODO: доделать
-async def excelreport(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    if db_mng.user.status < 1:
-        buttons = ['Авторизация']
-        keyboard.add(*buttons)
-        await message.answer('Для доступа к заданиям необходима авторизацция!', reply_markup=keyboard)
-        return
-    db_mng.excel_report()
-    await message.answer_document("./report.xlsx")
-
-
-async def newtask_step1(message: types.Message):
-    
-    await message.answer("Название задние:")
-    await Auth.log_in.set()    
-
-
-async def newtask_step2(message: types.Message):
-    pass
-
-async def newtask_step3(message: types.Message):
-    pass
-
-async def complite_step1(message: types.Message):
-    pass
-
-async def complite_step2(message: types.Message):
-    pass
-
-async def workers(message: types.Message):
-    pass
-
-async def workertask_step1(message: types.Message):
-    pass
-
-async def workertask_step2(message: types.Message):
-    pass
-
-async def searchclient_step1(message: types.Message):
-    pass
-
-async def searchclient_step2(message: types.Message):
-    pass
-
-async def models(message: types.Message):
-    pass
-
-async def newequipment_step1(message: types.Message):
-    pass
-
-async def newequipment_step2(message: types.Message):
-    pass
-
-async def contract(message: types.Message):
-    pass
-
-async def newcontract_step1(message: types.Message):
-    pass
-
-async def newcontract_step2(message: types.Message):
-    pass
-
-async def newcontract_step3(message: types.Message):
-    pass
-
-async def freerequest_step1(message: types.Message):
-    pass
-
-async def freerequest_step2(message: types.Message):
-    pass
-
-
-if __name__ == '__main__':
-    register_handlers_common(dp)
-    register_handlers_login(dp)
-    executor.start_polling(dp)
