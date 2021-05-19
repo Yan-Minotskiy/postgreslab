@@ -55,7 +55,7 @@ class DbManager(object):
         self.cursor.execute("SELECT login FROM worker "
                             "WHERE login=%s AND password=%s", (login, password))
         res = self.cursor.fetchall()
-        if not res == []:
+        if res != []:
             self.user = self.User(res[0])
             self.write_log(1)
             return True
@@ -110,7 +110,7 @@ class DbManager(object):
 
     @def_rights(1, 2, 3)
     def show_task(self, role="executor", with_complete=False):
-        # ! self.clean_task() не работает 
+        # ! self.clean_task() не работает
         if role == "executor":
             if with_complete:
                 return pd.read_sql("SELECT FROM task "
@@ -133,26 +133,6 @@ class DbManager(object):
                                    "WHERE author=" + self.user.login + " AND complete IS NULL"
                                                                        " ORDER BY priority, deadline NULLS LAST, id",
                                    self.conn)
-        elif role == "browser":
-            if role == "executor":
-                if with_complete:
-                    return pd.read_sql("SELECT * FROM task "
-                                       "WHERE executor=" + self.user.login + "OR author=" + self.user.login +
-                                       " ORDER BY complete DESC NULLS FIRST, priority,"
-                                       " deadline NULLS LAST, id", self.conn)
-                else:
-                    return pd.read_sql("SELECT * FROM task "
-                                       "WHERE (executor=" + self.user.login + "OR author=" + self.user.login +
-                                       ") AND complete IS NULL"
-                                       " ORDER BY priority, deadline NULLS LAST, id", self.conn)
-        elif role == "admin" and self.user.status == 3:
-            if with_complete:
-                return pd.read_sql("SELECT * FROM task "
-                                   " ORDER BY complete DESC NULLS FIRST, priority,"
-                                   " deadline NULLS LAST, id", self.conn)
-            else:
-                return pd.read_sql("SELECT * FROM task "
-                                   " ORDER BY priority, deadline NULLS LAST, id", self.conn)
 
     def task_to_list(self, qr:pd.DataFrame):
         task_cards = []

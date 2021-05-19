@@ -47,7 +47,7 @@ def register_handlers_login(dp: Dispatcher):
 
 async def login_step1(message):
     if db_mng.user.status > 0:
-        global db_mng = DbManager()
+        db_mng = DbManager()
     await message.answer("Логин:")
     await Auth.log_in.set()
 

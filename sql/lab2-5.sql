@@ -95,6 +95,39 @@ ALTER TABLE worker
 ADD FOREIGN KEY (status_id) REFERENCES status(status_id);
 
 
+INSERT INTO status VALUES (0, "Неавторизированный");
+INSERT INTO status VALUES (1, "Рядовой");
+INSERT INTO status VALUES (0, "Менеджер");
+INSERT INTO status VALUES (0, "Админ");
+
+INSERT INTO priority VALUES (1, "Высокий");
+INSERT INTO priority VALUES (2, "Средний");
+INSERT INTO priority VALUES (3, "Низкий");
+
+INSERT INTO journal_action VALUES (1, "Авторизация");
+INSERT INTO journal_action VALUES (2, "Выход");
+INSERT INTO journal_action VALUES (3, "Регистрация нового пользователя");
+INSERT INTO journal_action VALUES (4, "Удаление пользователя");
+INSERT INTO journal_action VALUES (5, "Изменение данных пользователя");
+INSERT INTO journal_action VALUES (6, "Создание задания");
+INSERT INTO journal_action VALUES (7, "Изменение параметров задания");
+INSERT INTO journal_action VALUES (8, "Отметка задания выполненным");
+INSERT INTO journal_action VALUES (9, "Удаление задания");
+INSERT INTO journal_action VALUES (10, "Добавление клента");
+INSERT INTO journal_action VALUES (11, "Изменение данных клиента");
+INSERT INTO journal_action VALUES (12, "Удаление клиента");
+INSERT INTO journal_action VALUES (13, "Добавление модели");
+INSERT INTO journal_action VALUES (14, "Изменение параметров модели");
+INSERT INTO journal_action VALUES (15, "Удаление модели");
+INSERT INTO journal_action VALUES (16, "Заключение договора");
+INSERT INTO journal_action VALUES (17, "Изменение данных договора");
+INSERT INTO journal_action VALUES (18, "Удаление договора");
+INSERT INTO journal_action VALUES (19, "Выгрузка отчёта о работе пользователя");
+INSERT INTO journal_action VALUES (20, "Создание оборудования");
+INSERT INTO journal_action VALUES (21, "Изменение данных оборудования");
+INSERT INTO journal_action VALUES (22, "Удаление оборудования");
+INSERT INTO journal_action VALUES (23, "Чтение записей журнала");
+INSERT INTO journal_action VALUES (24, "Свободный запрос к базе данных");
 
 
 
@@ -109,7 +142,8 @@ ADD FOREIGN KEY (status_id) REFERENCES status(status_id);
 
 
 
-
+/*
+для дальнейшего добавления связей
 
 ALTER TABLE public.equipment
     ADD FOREIGN KEY (contract_number)
@@ -158,3 +192,4 @@ ALTER TABLE public.priority
     REFERENCES public.task (priority)
     NOT VALID;
 
+*/
