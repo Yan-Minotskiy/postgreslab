@@ -11,6 +11,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 db_mng = DbManager()
 
 
+"""Передача управления функциям из базового состояния"""
 def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(start, commands="start", state="*")
     dp.register_message_handler(login_step1, commands="login", state="*")
@@ -22,7 +23,23 @@ def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(task, commands="task", state="*")
     dp.register_message_handler(task, Text(equals="задания", ignore_case=True), state="*")
     dp.register_message_handler(excelreport, commands="excelreport", state="*")
-    
+    dp.register_message_handler(workers, Text(equals="Работкники", ignore_case=True), state="*")
+    dp.register_message_handler(clients, Text(equals="Клиенты", ignore_case=True), state="*")
+    dp.register_message_handler(models, Text(equals="Модели", ignore_case=True), state="*")
+    dp.register_message_handler(eqipment, Text(equals="Оборудование", ignore_case=True), state="*")
+    dp.register_message_handler(freerequest_step1, Text(equals="Запрос к базе данных", ignore_case=True), state="*")
+    dp.register_message_handler(contract, Text(equals="Контракты", ignore_case=True), state="*")
+    dp.register_message_handler(client, commands="clients", state="*")
+    dp.register_message_handler(complete_step1, commands="complete", state="*")
+    dp.register_message_handler(searchclient_step1, commands="complete", state="*")
+    dp.register_message_handler(models, commands="models", state="*")
+    dp.register_message_handler(newcontract_step1, commands="newcontract", state="*")
+    dp.register_message_handler(newtask_step1, commands="newtask", state="*")
+    dp.register_message_handler(eqipment, commands="equipment", state="*")
+    dp.register_message_handler(newequipment_step1, commands="new_equipment", state="*")
+    dp.register_message_handler(workers, commands="workers", state="*")
+    dp.register_message_handler(newclient, commands="newclient", state="*")
+    dp.register_message_handler(freerequest_step1, commands="freerequest", state="*")
 
 
 """Стартовое сообщение в телеграм-боте"""
@@ -38,6 +55,9 @@ async def start(message):
 class Auth(StatesGroup):
     log_in = State()
     password = State()
+
+class Newtask(StatesGroup):
+    name = State()
 
 """Процесс авторизации в системе"""
 def register_handlers_login(dp: Dispatcher):
@@ -81,6 +101,8 @@ async def menu(message: types.Message):
         buttons = ['Задания', 'Клиенты', 'Оборудование', 'Войти с другого аккаунта']
     elif db_mng.user.status == 2:
         buttons = ['Задания', 'Клиенты', 'Оборудование', 'Работники', 'Контракты', 'Войти с другого аккаунта']
+    else:
+        buttons = ['Задания', 'Клиенты', 'Оборудование', 'Работники', 'Контракты', 'Запрос к базе данных', 'Войти с другого аккаунта', ]
     keyboard.add(*buttons)
     await message.answer("Используйте кнопки и команды для выбора.", reply_markup=keyboard)
 
@@ -105,8 +127,6 @@ async def task(message: types.Message):
         string = "Нет заданий."
     await message.answer(string, reply_markup=keyboard)
 
-
-# ! TODO: доделать
 async def excelreport(message: types.Message):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     if db_mng.user.status < 1:
@@ -115,20 +135,19 @@ async def excelreport(message: types.Message):
         await message.answer('Для доступа к заданиям необходима авторизацция!', reply_markup=keyboard)
         return
     db_mng.excel_report()
-    await message.answer_document("./report.xlsx")
+    await message.answer_document(f"./report{}.xlsx", login)
 
 
 async def newtask_step1(message: types.Message):
     
-    await message.answer("Название задние:")
-    await Auth.log_in.set()    
+    await message.answer("Начинаем создавать новое задание.\n")
+    await Auth.task.set()    
 
 
 async def newtask_step2(message: types.Message):
     pass
 
 async def newtask_step3(message: types.Message):
-    pass
 
 async def complite_step1(message: types.Message):
     pass
