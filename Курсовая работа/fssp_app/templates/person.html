@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+
+{% block title %} Информация о личности {% endblock %}
+{% block content %}
+<h1>{{ person.fullname}}</h1>
+<h6>Дата рождения: {{ person.born_date }}</h6>
+<h5>Паспортные данные</h5>
+<h6>Серия номер паспорта: {{ person.number_pasport }}</h6>
+<h6>Место рождения: {{ person.born_place }}</h6>
+<h6>Дата выдачи: {{person.date_issue}}</h6>
+<h6>Код подразделения: {{person.department_code}}</h6>
+<h5>Адреса</h5>
+<h6>Адрес проживания: {{ person.address }}</h6>
+<h6>Адрес регистации: {{ person.registration }}</h6>
+<h5>Контактные данные</h5>
+<h6>Номер телефона: {{ person.phone }}</h6>
+<h6>Адрес электронной почты: {{ person.email }}</h6>
+{% endblock %}
