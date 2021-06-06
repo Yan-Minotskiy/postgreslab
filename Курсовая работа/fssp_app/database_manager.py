@@ -30,14 +30,14 @@ class Person:
         self.born_date = str(t[4].day).zfill(2) + '.' + str(t[4].month).zfill(2) + '.' + str(t[4].year)
         self.address = Address(request('SELECT * FROM address WHERE address_id=%s', t[5])).fulladdress
         self.regisration = Address(request('SELECT * FROM address WHERE address_id=%s', t[6])).fulladdress
+        if self.address == self.regisration or self.regisration == '':
+            self.regisration = 'по месту проживания'
         self.phone = t[7]
         self.email = t[8]
         self.number_pasport = t[9][0:4] + ' ' + t[9][4:]
         self.date_issue = str(t[10].day).zfill(2) + '.' + str(t[10].month).zfill(2) + '.' + str(t[10].year)
-        self.department_code = str(t[11])
+        self.department_code = str(t[11]).zfill(6)
         self.born_place = Address(request('SELECT * FROM address WHERE address_id=%s', t[12])).fulladdress
 
-t = request('SELECT * FROM person')
-p = Person(t)
-print(p.number_pasport)
+listperson = [Person(p) for p in request('SELECT * FROM person', count_output=5)]
 

@@ -4,16 +4,50 @@
 {% block title %} Информация о личности {% endblock %}
 {% block content %}
 <h1>{{ person.fullname}}</h1>
-<h6>Дата рождения: {{ person.born_date }}</h6>
-<h5>Паспортные данные</h5>
-<h6>Серия номер паспорта: {{ person.number_pasport }}</h6>
-<h6>Место рождения: {{ person.born_place }}</h6>
-<h6>Дата выдачи: {{person.date_issue}}</h6>
-<h6>Код подразделения: {{person.department_code}}</h6>
-<h5>Адреса</h5>
-<h6>Адрес проживания: {{ person.address }}</h6>
-<h6>Адрес регистации: {{ person.registration }}</h6>
-<h5>Контактные данные</h5>
-<h6>Номер телефона: {{ person.phone }}</h6>
-<h6>Адрес электронной почты: {{ person.email }}</h6>
+<dl class="row">
+    <dt class="col-sm-3">Дата рождения</dt>
+    <dd class="col-sm-9">{{ person.born_date }}</dd>
+    <dt class="col-sm-3">Паспортные данные</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">Серия</dt>
+            <dd class="col-sm-8">{{ person.number_pasport[0:4] }}</dd>
+            <dt class="col-sm-4">Номер</dt>
+            <dd class="col-sm-8">{{ person.number_pasport[5:] }}</dd>
+            <dt class="col-sm-4">Место рождения</dt>
+            <dd class="col-sm-8">{{ person.born_place }}</dd>
+            <dt class="col-sm-4">Дата выдачи</dt>
+            <dd class="col-sm-8">{{person.date_issue}}</dd>
+            <dt class="col-sm-4">Код подразделения</dt>
+            <dd class="col-sm-8">{{person.department_code}}</dd>
+          </dl>
+    </dd>
+    <dt class="col-sm-3">Адреса</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">Адрес проживания</dt>
+            <dd class="col-sm-8">{{ person.address }}</dd>
+            <dt class="col-sm-4">Адрес регистации</dt>
+            <dd class="col-sm-8">по месту проживания</dd>
+        </dl>
+    </dd>
+    <dt class="col-sm-3">Контактные данные</dt>
+    <dd class="col-sm-9">
+        <dl class="row">
+            <dt class="col-sm-4">Номер телефона</dt>
+            <dd class="col-sm-8">{{ person.phone }}</dd>
+            <dt class="col-sm-4">Адрес электронной почты</dt>
+            <dd class="col-sm-8">{{ person.email }}</dd>
+        </dl>
+    </dd>
+    <dt class="col-sm-3">Размер задолженности</dt>
+    <dd class="col-sm-9">0 руб.</dd>
+    <dt class="col-sm-3">Объём взыскиваемых средств</dt>
+    <dd class="col-sm-9">0 руб.</dd>
+</dl>
+
+<h3>Список исполнительных производств с данной личностью</h3>
+<p>
+    Исполнительных производств в базе не найдено
+</p>
 {% endblock %}
