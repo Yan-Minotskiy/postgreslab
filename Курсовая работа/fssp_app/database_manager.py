@@ -41,3 +41,18 @@ class Person:
 
 listperson = [Person(p) for p in request('SELECT * FROM person', count_output=5)]
 
+class EnforchmentProceeding:
+    def __init__(self, t):
+        self.number = t[0]
+        self.court = request('SELECT * FROM court WHERE court_id=%s', t[1])
+        self.responsible = request('SELECT * FROM workers WHERE workers_id=%s', t[2])
+        self.payment_account = str(t[3]).zfill(10)
+        self.recoverer = Person(request('SELECT * FROM person WHERE person_id=%s', t[4])).fullname
+        self.debtor = Person(request('SELECT * FROM person WHERE person_id=%s', t[5])).fullname
+        self.debt = t[6]
+        self.start_date = str(t[7].day).zfill(2) + '.' + str(t[7].month).zfill(2) + '.' + str(t[7].year)
+
+listenforchmentproceeding = [EnforchmentProceeding(p) for p in request('SELECT * FROM enforcement_proceeding', count_output=5)]
+
+class Worker:
+    pass

@@ -1,58 +1,48 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
-{% block title %}
-Список должников
-{% endblock %}
 
-{% block body %}
-<h2>Список должников</h2>
-<h6>Указан список должников по исполнительным производствам, за которые вы ответственны.</h6>
+{% block title %} Информация о личности {% endblock %}
+{% block content %}
+
+<h1> Список исполнительных производств</h1>
+
+<div class="d-flex align-items-center">
+    <form class="w-100 me-3">
+      <input type="search" class="form-control" placeholder="Введите ФИО для поиска..." aria-label="Search">
+    </form>
+
+    <button type="button" class="btn btn-primary">Поиск</button>
+  </div>
+
+
+
 <table class="table">
     <thead>
-    <tr>
-      <th>Фамилия</th>
-      <th>Имя</th>
-      <th>Отчество</th>
-      <th>Дата рождения</th>
-      <th>Размер долга (руб)</th>
-    </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Должник</th>
+        <th scope="col">Взыскатель</th>
+        <th scope="col">Ответственный пристав</th>
+        <th scope="col">Задолженность, руб.</th>
+        <th scope="col">Счёт зачисления</th>
+        <th scope="col">Дата открытия</th>
+        <th scope="col"></th>
+      </tr>
     </thead>
     <tbody>
-    <a><tr>
-      <td>Панкратов</td>
-      <td>Давид</td>
-      <td>Леонидович</td>
-      <td>20.02.1974</td>
-      <td>200000</td>
-    </a>
-    </tr>
-    <tr>
-    <a>
-      <td>Морозов</td>
-      <td>Бенджамин</td>
-      <td>Эдуардович</td>
-      <td>04.10.1968</td>
-      <td>140000</td>
-    </a>
-    </tr>
-    <tr>
-    <a>
-        <td>Чернышев</td>
-        <td>Игорь</td>
-        <td>Валериевич</td>
-        <td>13.04.1972</td>
-        <td>1280000</td>
-    </a>
-    </tr>
-    <tr>
-    <a>
-        <td>Дмитриев</td>
-        <td>Григорий</td>
-        <td>Викторович</td>
-        <td>06.02.1979</td>
-        <td>11000</td>
-    </a>
-    </tr>
+    {% for p in eps %}
+      <tr>
+        <th scope="row"> {{ p.number }} </th>
+        <td>{{ p.debtor }}</td>
+        <td>{{ p.recoverer }}</td>
+        <td>{{ p.responsible }}</td>
+        <td>{{ p.debt }}</td>
+        <td>{{ p.payment_account }}</td>
+        <td>{{ p.start_date }}</td>
+        <td><a href="/ep/{{ p.number }}"></a></td>
+      </tr>
+    {% endfor %}
     </tbody>
-</table>
-{% endblock %}
+  </table>
+
+  {% endblock %}

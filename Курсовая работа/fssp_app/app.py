@@ -24,6 +24,10 @@ def persons():
 def form():
     return render_template('form.html')
 
+@app.route('/eps')
+def eps():
+    return render_template('eps.html', eps=database_manager.listenforchmentproceeding)
+
 if __name__ == '__main__':
     app.run(debug=True)
 
