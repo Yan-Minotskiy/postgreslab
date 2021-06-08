@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+
+{% block title %} Личный кабинет судебного пристава {% endblock %}
+{% block content %}
+
+<h1>{{ worker.fullname}}</h1>
+
+<dl class="row">
+    <dt class="col-sm-3">Должность</dt>
+    <dd class="col-sm-9">{{ worker.post }}</dd>
+    <dt class="col-sm-3">Отдел ФССП</dt>
+    <dd class="col-sm-9">{{ worker.department }}</dd>
+    <dt class="col-sm-3">Активных исполнителных производств</dt>
+    <dd class="col-sm-9">{{ worker.active_ep }}</dd>
+
+{% endblock %}

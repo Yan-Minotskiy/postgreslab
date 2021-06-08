@@ -493,6 +493,7 @@ INSERT INTO workers  (workers_id , name, surname, father_name,  department,  pos
 INSERT INTO workers  (workers_id , name, surname, father_name,  department,  post,  login, password) values (4, 'Александр', 'Ржевский', 'Николаевич', 3, 6, 'alexandrrzhevskiy', 'c575hla5');
 INSERT INTO workers (workers_id , name, surname, father_name,  department,  post,  login, password) values (5, 'Фёдор', 'Туркин', 'Анатольевич', 3, 5, 'fedorturkin', 'kqpz7400y');
 
+--Шифрование паролей
 CREATE EXTENSION pgcrypto;
 UPDATE workers SET password = crypt(password, ges_salt('md5'));
 

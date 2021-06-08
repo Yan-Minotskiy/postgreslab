@@ -10,6 +10,14 @@ def request(sql, *var, count_output=1,):
     else:
         return cursor.fetchall()
 
+def auth(login, password):
+    try:
+        if request('SELECT login FROM workers WHERE login=%s', login) is not None and request('SELECT * FROM workers WHERE password = crypt(%s, password)', password) is not None:
+            return True
+        return False
+    except:
+        return False
+
 class Address:
     def __init__(self, t):
         self.id = t[0]
@@ -38,6 +46,7 @@ class Person:
         self.date_issue = str(t[10].day).zfill(2) + '.' + str(t[10].month).zfill(2) + '.' + str(t[10].year)
         self.department_code = str(t[11]).zfill(6)
         self.born_place = Address(request('SELECT * FROM address WHERE address_id=%s', t[12])).fulladdress
+        # self.now_debt = sum([EnforchmentProceeding(request('SELECT * FROM enforcement_proceeding WHERE debtor=%s', self.id, count_output=5))])
 
 listperson = [Person(p) for p in request('SELECT * FROM person', count_output=5)]
 
@@ -51,8 +60,15 @@ class EnforchmentProceeding:
         self.debtor = Person(request('SELECT * FROM person WHERE person_id=%s', t[5])).fullname
         self.debt = t[6]
         self.start_date = str(t[7].day).zfill(2) + '.' + str(t[7].month).zfill(2) + '.' + str(t[7].year)
+        self.now_debt = request('SELECT check_dept(%s)', self.number)
 
 listenforchmentproceeding = [EnforchmentProceeding(p) for p in request('SELECT * FROM enforcement_proceeding', count_output=5)]
 
 class Worker:
-    pass
+    def __init__(self, t):
+        self.id = t[0]
+        self.fullname = t[2] + ' ' + t[1] + ' ' + t[3]
+        self.department = request('SELECT name FROM department WHERE department_id=%s', t[4])[0]
+        self.post = request('SELECT name FROM admin.post WHERE post_id=%s', t[5])[0]
+        self.all_active_ep= [i[0] for i in request('SELECT enforcement_proceeding_id FROM enforcement_proceeding WHERE check_dept(enforcement_proceeding.enforcement_proceeding_id)>0', count_output=5)]
+        self.active_ep = len(self.all_active_ep)

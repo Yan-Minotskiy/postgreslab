@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% if check %}
 
 {% block t %}
 {% block title %}{% endblock %}
@@ -28,3 +29,7 @@
     </div>
   </footer>
 {% endblock %}
+
+{% else %}
+    <h1>Доступ запрещён</h1>
+{% endif %}
