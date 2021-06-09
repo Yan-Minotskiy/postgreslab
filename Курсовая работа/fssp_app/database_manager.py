@@ -12,10 +12,18 @@ def request(sql, *var, count_output=1,):
 
 def auth(login, password):
     try:
-        if request('SELECT login FROM workers WHERE login=%s', login) is not None and request('SELECT * FROM workers WHERE password = crypt(%s, password)', password) is not None:
-            return True
-        return False
+        return (
+            request('SELECT login FROM workers WHERE login=%s', login)
+            is not None
+            and request(
+                'SELECT * FROM workers WHERE password = crypt(%s, password)',
+                password,
+            )
+            is not None
+        )
+
     except:
+        print('kjjk')
         return False
 
 class Address:
@@ -48,27 +56,36 @@ class Person:
         self.born_place = Address(request('SELECT * FROM address WHERE address_id=%s', t[12])).fulladdress
         # self.now_debt = sum([EnforchmentProceeding(request('SELECT * FROM enforcement_proceeding WHERE debtor=%s', self.id, count_output=5))])
 
+def sort_persons(person):
+    return person.fullname
+
 listperson = [Person(p) for p in request('SELECT * FROM person', count_output=5)]
-
-class EnforchmentProceeding:
-    def __init__(self, t):
-        self.number = t[0]
-        self.court = request('SELECT * FROM court WHERE court_id=%s', t[1])
-        self.responsible = request('SELECT * FROM workers WHERE workers_id=%s', t[2])
-        self.payment_account = str(t[3]).zfill(10)
-        self.recoverer = Person(request('SELECT * FROM person WHERE person_id=%s', t[4])).fullname
-        self.debtor = Person(request('SELECT * FROM person WHERE person_id=%s', t[5])).fullname
-        self.debt = t[6]
-        self.start_date = str(t[7].day).zfill(2) + '.' + str(t[7].month).zfill(2) + '.' + str(t[7].year)
-        self.now_debt = request('SELECT check_dept(%s)', self.number)
-
-listenforchmentproceeding = [EnforchmentProceeding(p) for p in request('SELECT * FROM enforcement_proceeding', count_output=5)]
-
+listperson.sort(key=sort_persons)
 class Worker:
     def __init__(self, t):
         self.id = t[0]
         self.fullname = t[2] + ' ' + t[1] + ' ' + t[3]
         self.department = request('SELECT name FROM department WHERE department_id=%s', t[4])[0]
         self.post = request('SELECT name FROM admin.post WHERE post_id=%s', t[5])[0]
-        self.all_active_ep= [i[0] for i in request('SELECT enforcement_proceeding_id FROM enforcement_proceeding WHERE check_dept(enforcement_proceeding.enforcement_proceeding_id)>0', count_output=5)]
+        self.login = t[6]
+        self.all_active_ep= [i[0] for i in request('SELECT enforcement_proceeding_id FROM enforcement_proceeding' 
+                                                   ' WHERE check_dept(enforcement_proceeding.enforcement_proceeding_id)>0'
+                                                   ' AND responsible=%s', self.id, count_output=5)]
         self.active_ep = len(self.all_active_ep)
+
+listworker = [Worker(p) for p in request('SELECT * FROM workers', count_output=5)]
+
+class EnforchmentProceeding:
+    def __init__(self, t):
+        self.number = t[0]
+        self.court = request('SELECT * FROM court WHERE court_id=%s', t[1])
+        self.responsible = Worker(request('SELECT * FROM workers WHERE workers_id=%s', t[2]))
+        self.payment_account = str(t[3]).zfill(10)
+        self.recoverer = Person(request('SELECT * FROM person WHERE person_id=%s', t[4]))
+        self.debtor = Person(request('SELECT * FROM person WHERE person_id=%s', t[5]))
+        self.debt = t[6]
+        self.start_date = str(t[7].day).zfill(2) + '.' + str(t[7].month).zfill(2) + '.' + str(t[7].year)
+        self.now_debt = request('SELECT check_dept(%s)', self.number)
+
+listenforchmentproceeding = [EnforchmentProceeding(p) for p in request('SELECT * FROM enforcement_proceeding', count_output=5)]
+

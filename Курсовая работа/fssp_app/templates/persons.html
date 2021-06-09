@@ -7,33 +7,30 @@
 <h1> Список людей в базе системы</h1>
 
 <div class="d-flex align-items-center">
-    <form class="w-100 me-3">
-      <input type="search" class="form-control" placeholder="Введите ФИО для поиска..." aria-label="Search">
-    </form>
-
-    <button type="button" class="btn btn-primary">Поиск</button>
-  </div>
-
-
+  <form class="d-flex align-items-center w-100 me-3" method="post">
+    <input type="search" class="form-control" placeholder="Введите ФИО для поиска..." aria-label="Search" id="floatingInput" name="floatingInput">
+    <button type="submit" class="btn btn-primary">Поиск</button>
+  </form>
+</div>
 
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">ФИО</th>
-        <th scope="col">Дата рождения</th>
-        <th scope="col">Задолженность, руб.</th>
-        <th scope="col">Объём взыскиваемых средств, руб.</th>
+        <th scope="col"><i data-mdb-sort="field_0" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>ID</th>
+        <th scope="col"><i data-mdb-sort="field_1" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>ФИО</th>
+        <th scope="col"><i data-mdb-sort="field_2" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Дата рождения</th>
+        <th scope="col"><i data-mdb-sort="field_3" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Задолженность, руб.</th>
+        <th scope="col"><i data-mdb-sort="field_4" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Объём взыскиваемых средств, руб.</th>
       </tr>
     </thead>
     <tbody>
     {% for p in persons %}
-      <tr>
-        <th scope="row"> {{ p.id }}</th>
-        <td><a href="/persons/{{ p.id }}"> {{ p.fullname }}</a></td>
-        <td>{{ p.born_date }}</td>
-        <td>0</td>
-        <td>0</td>
+      <tr scope="row" data-mdb-index="1">
+        <td data-mdb-field="field_0"> {{ p.id }}</th>
+        <td data-mdb-field="field_1"><a href="/persons/{{ p.id }}"> {{ p.fullname }}</a></td>
+        <td data-mdb-field="field_2">{{ p.born_date }}</td>
+        <td data-mdb-field="field_3">0</td>
+        <td data-mdb-field="field_4">0</td>
       </tr>
     {% endfor %}
     </tbody>
