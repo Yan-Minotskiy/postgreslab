@@ -8,7 +8,7 @@
 
 <div class="d-flex align-items-center">
     <form class="w-100 me-3">
-      <input type="search" class="form-control" placeholder="Введите ФИО для поиска..." aria-label="Search">
+      <input type="search" class="form-control" placeholder="Введите № исп. производства для поиска..." aria-label="Search">
     </form>
 
     <button type="button" class="btn btn-primary">Поиск</button>
@@ -36,7 +36,7 @@
         <td><a href="/persons/{{ p.debtor.id }}">{{ p.debtor.fullname }}</a></td>
         <td><a href="/persons/{{ p.recoverer.id }}">{{ p.recoverer.fullname }}</a></td>
         <td><a href="/workers/{{ p.responsible.id }}">{{ p.responsible.fullname }}</a></td>
-        <td>{{ p.debt }}</td>
+        <td>{{ p.now_debt }}</td>
         <td>{{ p.payment_account }}</td>
         <td>{{ p.start_date }}</td>
         <td><a href="/ep/{{ p.number }}"></a></td>

@@ -68,10 +68,10 @@ class Worker:
         self.department = request('SELECT name FROM department WHERE department_id=%s', t[4])[0]
         self.post = request('SELECT name FROM admin.post WHERE post_id=%s', t[5])[0]
         self.login = t[6]
-        self.all_active_ep= [i[0] for i in request('SELECT enforcement_proceeding_id FROM enforcement_proceeding' 
-                                                   ' WHERE check_dept(enforcement_proceeding.enforcement_proceeding_id)>0'
-                                                   ' AND responsible=%s', self.id, count_output=5)]
-        self.active_ep = len(self.all_active_ep)
+        # self.all_active_ep= [i[0] for i in request('SELECT enforcement_proceeding_id FROM enforcement_proceeding' 
+                                                   #' WHERE check_dept(enforcement_proceeding.enforcement_proceeding_id)>0'
+                                                   #' AND responsible=%s', self.id, count_output=1)]
+        # self.active_ep = len(self.all_active_ep)
 
 listworker = [Worker(p) for p in request('SELECT * FROM workers', count_output=5)]
 
@@ -85,7 +85,7 @@ class EnforchmentProceeding:
         self.debtor = Person(request('SELECT * FROM person WHERE person_id=%s', t[5]))
         self.debt = t[6]
         self.start_date = str(t[7].day).zfill(2) + '.' + str(t[7].month).zfill(2) + '.' + str(t[7].year)
-        self.now_debt = request('SELECT check_dept(%s)', self.number)
+        self.now_debt = request('SELECT check_dept(%s)', self.number)[0]
 
 listenforchmentproceeding = [EnforchmentProceeding(p) for p in request('SELECT * FROM enforcement_proceeding', count_output=5)]
 

@@ -6,21 +6,24 @@ app = Flask(__name__)
 logged = False
 user = None
 
+
 def logged_control(function_to_decorate):
     def wrapper(*args, **kwargs):
         if logged:
             print('True')
-            function_to_decorate(*args, **kwargs) 
+            function_to_decorate(*args, **kwargs)
         else:
             return redirect('/auth')
     return wrapper
+
 
 @app.route('/')
 def index():
     if logged:
         return render_template('main.html')
     else:
-            return redirect('/auth')
+        return redirect('/auth')
+
 
 @app.route('/auth', methods=['POST', 'GET'])
 def auth():
@@ -39,6 +42,7 @@ def auth():
         logged = False
         return render_template('auth.html')
 
+
 @app.route('/persons/<id>')
 def person(id):
     if logged:
@@ -46,25 +50,37 @@ def person(id):
     else:
         return redirect('/auth')
 
+
 @app.route('/persons', methods=['POST', 'GET'])
 def persons():
     if request.method == 'POST':
         search = request.form['floatingInput']
-        search_list = [p for p in database_manager.listperson if search in p.fullname]
+        search_list = [
+            p for p in database_manager.listperson if search in p.fullname]
         return render_template('persons.html', persons=search_list)
     else:
         if logged:
             return render_template('persons.html', persons=database_manager.listperson)
         else:
             return redirect('/auth')
-    
 
-@app.route('/form')
+
+class GetForm:
+    def __init__(request_form):
+
+
+@app.route('/form', methods=['POST', 'GET'])
 def form():
-    if logged:
-        return render_template('form.html')
-    else:
-        return redirect('/auth')
+    if request.method != 'POST':
+        try:
+            pass
+        except:
+            return redirect('/')
+        if logged:
+            return render_template('form.html', regions=[i[0] for i in database_manager.request('SELECT name FROM admin.area', count_output=5)])
+        else:
+            return redirect('/auth')
+
 
 @app.route('/eps')
 def eps():
@@ -73,6 +89,7 @@ def eps():
     eps = [ep for ep in database_manager.listenforchmentproceeding if ep.responsible.id == user.id]
     return render_template('eps.html', eps=eps)
 
+
 @app.route('/eps/<id>')
 def ep(id):
     if logged:
@@ -80,10 +97,11 @@ def ep(id):
     else:
         return redirect('/auth')
 
+
 @app.route('/workers/<id>')
 def worker(id):
     if logged:
-        return  render_template('worker.html', worker=database_manager.Worker(database_manager.request('SELECT * FROM workers WHERE workers_id=%s', id)))
+        return render_template('worker.html', worker=database_manager.Worker(database_manager.request('SELECT * FROM workers WHERE workers_id=%s', id)))
     else:
         return redirect('/auth')
 
