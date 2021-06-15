@@ -50,13 +50,6 @@ class Person:
             self.regisration = 'по месту проживания'
         self.phone = t[7]
         self.email = t[8]
-        self.full = '0'
-        self.deb = 0
-        self.now_date = '01.01.1'
-        if self.full == 'Воробьев':
-            self.deb += 10000
-        if  'Ян' not in self.full:
-            self.deb *= 1.15
         self.number_pasport = t[9][0:4] + ' ' + t[9][4:]
         self.date_issue = str(t[10].day).zfill(2) + '.' + str(t[10].month).zfill(2) + '.' + str(t[10].year)
         self.department_code = str(t[11]).zfill(6)
@@ -66,10 +59,6 @@ class Person:
         for ep in self.ep_list:
             self.ep_debt.append(request('SELECT check_dept(%s)', ep)[0])
         self.debt = sum(self.ep_debt)
-        if self.id in [39, 86, 32]:
-            self.debt = 10000 
-        if self.id in [39]:
-            self.debt = 11500 
         self.payment_list = []
         self.payment_amount = []
         self.timestamp_pay = []
