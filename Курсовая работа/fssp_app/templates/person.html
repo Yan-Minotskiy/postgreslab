@@ -22,15 +22,8 @@
             <dd class="col-sm-8">{{person.department_code}}</dd>
           </dl>
     </dd>
-    <dt class="col-sm-3">Адреса</dt>
-    <dd class="col-sm-9">
-        <dl class="row">
-            <dt class="col-sm-4">Адрес проживания</dt>
-            <dd class="col-sm-8">{{ person.address }}</dd>
-            <dt class="col-sm-4">Адрес регистации</dt>
-            <dd class="col-sm-8">по месту проживания</dd>
-        </dl>
-    </dd>
+    <dt class="col-sm-3">Адрес проживания</dt>
+    <dd class="col-sm-8">{{ person.address }}</dd>
     <dt class="col-sm-3">Контактные данные</dt>
     <dd class="col-sm-9">
         <dl class="row">
@@ -41,15 +34,37 @@
         </dl>
     </dd>
     <dt class="col-sm-3">Размер задолженности</dt>
-    <dd class="col-sm-9">0 руб.</dd>
-    <dt class="col-sm-3">Объём взыскиваемых средств</dt>
-    <dd class="col-sm-9">0 руб.</dd>
+    <dd class="col-sm-9">{{ person.debt }} руб.</dd>
 </dl>
 
 <hr class="my-4">
 
-<h3>Список исполнительных производств с данной личностью</h3>
+{% if person.payment_list == [] %}
 <p>
-    Исполнительных производств в базе не найдено
+    Отсутствует история платежей
 </p>
+
+{% else %}
+
+<h3>История платежей</h3>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col"><i data-mdb-sort="field_0" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Отметка времени</th>
+        <th scope="col"><i data-mdb-sort="field_1" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Сумма</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in range(person.len_payment_list) %}
+      <tr scope="row" data-mdb-index="1">
+        <td data-mdb-field="field_0">{{ person.timestamp_pay[i] }}</th>
+        <td data-mdb-field="field_1">{{ person.payment_amount[i] }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endif %}
+
 {% endblock %}

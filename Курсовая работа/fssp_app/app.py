@@ -20,7 +20,7 @@ def logged_control(function_to_decorate):
 @app.route('/')
 def index():
     if logged:
-        return render_template('main.html')
+        return render_template('main.html', post_id=user.post_id)
     else:
         return redirect('/auth')
 
@@ -64,9 +64,11 @@ def persons():
         else:
             return redirect('/auth')
 
-
+'''
 class GetForm:
     def __init__(request_form):
+        request_form['']
+'''
 
 
 @app.route('/form', methods=['POST', 'GET'])
@@ -86,7 +88,7 @@ def form():
 def eps():
     if not logged:
         return redirect('/auth')
-    eps = [ep for ep in database_manager.listenforchmentproceeding if ep.responsible.id == user.id]
+    eps = [ep for ep in database_manager.listenforchmentproceeding if int(ep.responsible_id) == user.id]
     return render_template('eps.html', eps=eps)
 
 
@@ -96,6 +98,15 @@ def ep(id):
         return render_template('eps.html', ep=id)
     else:
         return redirect('/auth')
+
+
+@app.route('/workers')
+def workers():
+    if not logged:
+        return redirect('/auth')
+    list_dep_workers = [w for w in database_manager.listworker if w.department_id == user.department_id]
+    return render_template('workers.html', workers=list_dep_workers)
+
 
 
 @app.route('/workers/<id>')

@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+
+{% block title %} Список людей {% endblock %}
+{% block content %}
+
+<h1> Список приставов в вашем департаменте</h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col"><i data-mdb-sort="field_0" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>ID</th>
+        <th scope="col"><i data-mdb-sort="field_1" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>ФИО</th>
+        <th scope="col"><i data-mdb-sort="field_2" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Должность</th>
+        <th scope="col"><i data-mdb-sort="field_3" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Департамент</th>
+        <th scope="col"><i data-mdb-sort="field_4" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Количество активных исполнительных производств</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for p in workers %}
+      <tr scope="row" data-mdb-index="1">
+        <td data-mdb-field="field_0">{{ p.id }}</th>
+        <td data-mdb-field="field_1"><a href="/workers/{{ p.id }}">{{ p.fullname }}</a></td>
+        <td data-mdb-field="field_2">{{ p.post }}</td>
+        <td data-mdb-field="field_3">{{ p.department }}</td>
+        <td data-mdb-field="field_4">{{ p.len_eps }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

@@ -20,7 +20,6 @@
         <th scope="col"><i data-mdb-sort="field_1" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>ФИО</th>
         <th scope="col"><i data-mdb-sort="field_2" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Дата рождения</th>
         <th scope="col"><i data-mdb-sort="field_3" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Задолженность, руб.</th>
-        <th scope="col"><i data-mdb-sort="field_4" class="datatable-sort-icon fas fa-arrow-up" style="transform: rotate(0deg);"></i>Объём взыскиваемых средств, руб.</th>
       </tr>
     </thead>
     <tbody>
@@ -29,8 +28,7 @@
         <td data-mdb-field="field_0"> {{ p.id }}</th>
         <td data-mdb-field="field_1"><a href="/persons/{{ p.id }}"> {{ p.fullname }}</a></td>
         <td data-mdb-field="field_2">{{ p.born_date }}</td>
-        <td data-mdb-field="field_3">0</td>
-        <td data-mdb-field="field_4">0</td>
+        <td data-mdb-field="field_3">{{ p.debt }}</td>
       </tr>
     {% endfor %}
     </tbody>

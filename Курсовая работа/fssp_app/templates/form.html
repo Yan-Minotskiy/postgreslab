@@ -42,8 +42,8 @@
             </div>
 
             <div class="col-12">
-              <label for="fatherName" class="form-label">Дата рождения</label>
-              <input type="date" class="form-control" id="fatherName" placeholder="" value="" required="">
+              <label for="bornDate" class="form-label">Дата рождения</label>
+              <input type="date" class="form-control" id="bornDate" placeholder="" value="" required="">
               <div class="invalid-feedback">
                   Требуется действительная дата рождения
               </div>
@@ -52,24 +52,24 @@
           <h5>Паспортные данные</h5>
 
           <div class="col-md-3">
-            <label for="cc-expiration" class="form-label">Серия</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+            <label for="series" class="form-label">Серия</label>
+            <input type="text" class="form-control" id="series" placeholder="" required="">
             <div class="invalid-feedback">
               Expiration date required
             </div>
           </div>
 
           <div class="col-md-3">
-            <label for="cc-expiration" class="form-label">Номер</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+            <label for="number" class="form-label">Номер</label>
+            <input type="text" class="form-control" id="number" placeholder="" required="">
             <div class="invalid-feedback">
               Expiration date required
             </div>
           </div>
 
           <div class="col-md-3">
-            <label for="cc-expiration" class="form-label">Код подразделения</label>
-            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+            <label for="code" class="form-label">Код подразделения</label>
+            <input type="text" class="form-control" id="code" placeholder="" required="">
             <div class="invalid-feedback">
               Expiration date required
             </div>
@@ -102,24 +102,32 @@
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">Улица</label>
-              <input type="text" class="form-control" id="address" placeholder="ул. Стромынка" required="">
+              <label for="street" class="form-label">Улица</label>
+              <input type="text" class="form-control" id="street" placeholder="ул. Стромынка" required="">
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">Дом</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+              <label for="house" class="form-label">Дом</label>
+              <input type="text" class="form-control" id="house" placeholder="" required="">
               <div class="invalid-feedback">
                 Credit card number is required
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Корпус (при наличии)</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="corp" class="form-label">Корпус (при наличии)</label>
+              <input type="text" class="form-control" id="corp" placeholder="" required="">
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="flat" class="form-label">Квартира (при наличии)</label>
+              <input type="text" class="form-control" id="flat" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
@@ -146,8 +154,8 @@
             <h5>Адрес места жительства</h5>
 
             <div class="col-md-5">
-              <label for="country" class="form-label">Страна</label>
-              <select class="form-select" id="country" required="">
+              <label for="country2" class="form-label">Страна</label>
+              <select class="form-select" id="country2" required="">
                 <option value="">Выбрать...</option>
                 <option>Россия</option>
               </select>
@@ -157,8 +165,8 @@
             </div>
 
             <div class="col-md-4">
-              <label for="state" class="form-label">Регион</label>
-              <select class="form-select" id="state" required="">
+              <label for="state2" class="form-label">Регион</label>
+              <select class="form-select" id="state2" required="">
                 <option value="">Выбрать...</option>
                 {% for reg in regions %}
                 <option>{{ reg }}</option>
@@ -170,32 +178,31 @@
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">Улица</label>
-              <input type="text" class="form-control" id="address" placeholder="ул. Стромынка" required="">
+              <label for="street2" class="form-label">Улица</label>
+              <input type="text" class="form-control" id="street2" placeholder="ул. Стромынка" required="">
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">Дом</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-              <div class="invalid-feedback">
-                Credit card number is required
+              <label for="house2" class="form-label">Дом</label>
+              <input type="text" class="form-control" id="house2" placeholder="" required="">
+              <div class="invalid-feedback">!
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Корпус (при наличии)</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="corp2" class="form-label">Корпус (при наличии)</label>
+              <input type="text" class="form-control" id="corp2" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Квартира (при наличии)</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="flat2" class="form-label">Квартира (при наличии)</label>
+              <input type="text" class="form-control" id="flat2" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
@@ -207,32 +214,32 @@
           <div class="row g-3">
 
             <div class="col-12">
-              <label for="lastName" class="form-label">Фамилия</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+              <label for="lastName2" class="form-label">Фамилия</label>
+              <input type="text" class="form-control" id="lastName2" placeholder="" value="" required="">
               <div class="invalid-feedback">
                 Требуется действительная фамилия
               </div>
             </div>
 
             <div class="col-12">
-              <label for="firstName" class="form-label">Имя</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+              <label for="firstName2" class="form-label">Имя</label>
+              <input type="text" class="form-control" id="firstName2" placeholder="" value="" required="">
               <div class="invalid-feedback">
                 Требуется действительное имя
               </div>
             </div>
 
             <div class="col-12">
-                <label for="fatherName" class="form-label">Отчество</label>
-                <input type="text" class="form-control" id="fatherName" placeholder="" value="" required="">
+                <label for="fatherName2" class="form-label">Отчество</label>
+                <input type="text" class="form-control" id="fatherName2" placeholder="" value="" required="">
                 <div class="invalid-feedback">
                     Требуется действительное отчество
                 </div>
             </div>
 
             <div class="col-12">
-              <label for="fatherName" class="form-label">Дата рождения</label>
-              <input type="date" class="form-control" id="fatherName" placeholder="" value="" required="">
+              <label for="bornDate2" class="form-label">Дата рождения (если известно)</label>
+              <input type="date" class="form-control" id="bornDate2" placeholder="" value="" required="">
               <div class="invalid-feedback">
                   Требуется действительная дата рождения
               </div>
@@ -241,16 +248,16 @@
             <h5>Контактная информация</h5>
 
             <div class="col-12">
-              <label for="email" class="form-label">Email (если известно)</label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <label for="email2" class="form-label">Email (если известно)</label>
+              <input type="email" class="form-control" id="email2" placeholder="you@example.com">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
   
             <div class="col-12">
-              <label for="tel" class="form-label">Телефон (если известно)</label>
-              <input type="tel" class="form-control" id="tel" placeholder="">
+              <label for="tel2" class="form-label">Телефон (если известно)</label>
+              <input type="tel" class="form-control" id="tel2" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -259,8 +266,8 @@
             <h5>Адрес места жительства</h5>
 
             <div class="col-md-5">
-              <label for="country" class="form-label">Страна</label>
-              <select class="form-select" id="country" required="">
+              <label for="country3" class="form-label">Страна</label>
+              <select class="form-select" id="country3" required="">
                 <option value="">Выбрать...</option>
                 <option>Россия</option>
               </select>
@@ -270,8 +277,8 @@
             </div>
 
             <div class="col-md-4">
-              <label for="state" class="form-label">Регион</label>
-              <select class="form-select" id="state" required="">
+              <label for="state3" class="form-label">Регион</label>
+              <select class="form-select" id="state3" required="">
                 <option value="">Выбрать...</option>
                 {% for reg in regions %}
                 <option>{{ reg }}</option>
@@ -283,32 +290,32 @@
             </div>
 
             <div class="col-12">
-              <label for="address" class="form-label">Улица</label>
-              <input type="text" class="form-control" id="address" placeholder="ул. Стромынка" required="">
+              <label for="street3" class="form-label">Улица</label>
+              <input type="text" class="form-control" id="street3" placeholder="ул. Стромынка" required="">
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="cc-number" class="form-label">Дом</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+              <label for="house3" class="form-label">Дом</label>
+              <input type="text" class="form-control" id="house3" placeholder="" required="">
               <div class="invalid-feedback">
                 Credit card number is required
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Корпус (при наличии)</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="corp3" class="form-label">Корпус (при наличии)</label>
+              <input type="text" class="form-control" id="corp3" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">Квартира (при наличии)</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="flat3" class="form-label">Квартира (при наличии)</label>
+              <input type="text" class="form-control" id="flat3" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
@@ -343,16 +350,16 @@
           <h3>Реквизиты счёта зачисления</h3>
 
             <div class="col-6">
-              <label for="court" class="form-label">Номер счёта</label>
-              <input type="text" class="form-control" id="court" placeholder="">
+              <label for="accaunt" class="form-label">Номер счёта</label>
+              <input type="text" class="form-control" id="accaunt" placeholder="">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
 
             <div class="col-md-6">
-              <label for="state" class="form-label">Банк</label>
-              <select class="form-select" id="state" required="">
+              <label for="bank" class="form-label">Банк</label>
+              <select class="form-select" id="bank" required="">
                 <option value="">Выбрать...</option>
                 <option>Сбербанк</option>
                 <option>ВТБ</option>
@@ -371,16 +378,16 @@
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">БИК банка получателя</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="bik" class="form-label">БИК банка получателя</label>
+              <input type="text" class="form-control" id="bik" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>
             </div>
 
             <div class="col-md-3">
-              <label for="cc-expiration" class="form-label">КПП</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+              <label for="kpp" class="form-label">КПП</label>
+              <input type="text" class="form-control" id="kpp" placeholder="" required="">
               <div class="invalid-feedback">
                 Expiration date required
               </div>

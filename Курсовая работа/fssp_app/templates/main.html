@@ -4,6 +4,16 @@
 {% block title %} Главная {% endblock %}
 {% block content %}
 <main>
+
+      {% if post_id <= 5 %}
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">Статистика сотрудников</h1>
+          <p class="col-md-8 fs-4">Просмотр информации о деятельности сотрудников вашего отдела ФСПП.</p>
+          <button class="btn btn-primary btn-lg" type="button"  onclick="window.location.href = '/workers';">Смотреть</button>
+        </div>
+      </div>
+      {% else %}
       <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container-fluid py-5">
           <h1 class="display-5 fw-bold">Приём заявлений граждан</h1>
@@ -11,7 +21,8 @@
           <button class="btn btn-primary btn-lg" type="button"  onclick="window.location.href = '/form';">Перейти к форме</button>
         </div>
       </div>
-  
+      {% endif %}
+      
       <div class="row align-items-md-stretch">
         <div class="col-md-6">
           <div class="h-100 p-5 text-white bg-dark rounded-3">
@@ -28,5 +39,16 @@
           </div>
         </div>
     </div>
+    
+    {% if post_id <= 5 %}
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Приём заявлений граждан</h1>
+        <p class="col-md-8 fs-4">Форма для принятия заявлений о предъявлении исполнительного листа на рассмотрение и возбуждения исполнительного производства.</p>
+        <button class="btn btn-primary btn-lg" type="button"  onclick="window.location.href = '/form';">Перейти к форме</button>
+      </div>
+    </div>
+    {% endif %}
+
   </main>
 {% endblock %}
