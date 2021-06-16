@@ -129,22 +129,6 @@ INSERT INTO journal_action VALUES (22, "Удаление оборудовани�
 INSERT INTO journal_action VALUES (23, "Чтение записей журнала");
 INSERT INTO journal_action VALUES (24, "Свободный запрос к базе данных");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-для дальнейшего добавления связей
-
 ALTER TABLE public.equipment
     ADD FOREIGN KEY (contract_number)
     REFERENCES public.contract ("number")
@@ -191,5 +175,3 @@ ALTER TABLE public.priority
     ADD FOREIGN KEY (id)
     REFERENCES public.task (priority)
     NOT VALID;
-
-*/
