@@ -1,6 +1,6 @@
 # Лабораторные, практические и курсовая работы по дисциплине клиент-серверные системы управления базами данных.
 
-* **Авторы решений:** [**Носков Сергей**](https://github.com/noskovsv), [**Миноцкий Ян**](https://github.com/Yan-Minotskiy).
+* **Авторы решений:** [**Носков Сергей**](https://github.com/Sergey-Noskov), [**Миноцкий Ян**](https://github.com/Yan-Minotskiy).
 * **Время разработки:** февраль-июнь 2021
 * **Используемые технологии:** [PostgreSQL](https://www.postgresql.org/), [PgAdmin](https://www.pgadmin.org/), [Python](https://www.python.org/), [Flask](https://flask-russian-docs.readthedocs.io/ru/master/), [Aiogram](https://github.com/aiogram/aiogram)
 
